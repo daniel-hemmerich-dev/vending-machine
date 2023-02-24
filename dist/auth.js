@@ -32,10 +32,9 @@ function login(request, response) {
         return response.status(400).json(errors);
     }
     // create the jwt token
-    const accessToken = jwt.sign({ sub: user.id }, process.env.JWT_ACCESS_TOKEN_SECRET /*,
-    {
+    const accessToken = jwt.sign({ sub: user.id }, process.env.JWT_ACCESS_TOKEN_SECRET, {
         expiresIn: '15m'
-    }*/);
+    });
     // set the jwt token as a cookie
     response.cookie((_c = process.env.JWT_COOKIE_NAME) !== null && _c !== void 0 ? _c : 'vending-machine-jwt', accessToken, {
         maxAge: 1000 * 60 * 15,

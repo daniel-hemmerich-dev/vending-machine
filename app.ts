@@ -8,9 +8,10 @@ import user from './user'
 
 // init the server
 dotenv.config()
+dotenv.config({ path: `.env.local`, override: true })
 const app : Express = express()
 app.use(express.json())
-
+console.log(process.env.JWT_ACCESS_TOKEN_SECRET)
 
 // define routes
 app.post('/user', user.validate, user.create)

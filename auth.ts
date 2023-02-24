@@ -42,10 +42,10 @@ export function login(
     // create the jwt token
     const accessToken : string = jwt.sign(
         { sub: user.id },
-        process.env.JWT_ACCESS_TOKEN_SECRET/*,
+        process.env.JWT_ACCESS_TOKEN_SECRET,
         {
             expiresIn: '15m'
-        }*/
+        }
     )
 
     // set the jwt token as a cookie

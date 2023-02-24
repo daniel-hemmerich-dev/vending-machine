@@ -9,8 +9,10 @@ const auth_1 = __importDefault(require("./auth"));
 const user_1 = __importDefault(require("./user"));
 // init the server
 dotenv_1.default.config();
+dotenv_1.default.config({ path: `.env.local`, override: true });
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+console.log(process.env.JWT_ACCESS_TOKEN_SECRET);
 // define routes
 app.post('/user', user_1.default.validate, user_1.default.create);
 app.put('/user', auth_1.default.authenticate, user_1.default.validate, user_1.default.update);
