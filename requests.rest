@@ -1,0 +1,29 @@
+### Create a user.
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+    "username": "rachel",
+    "password": "123456",
+    "deposit": "100",
+    "role": "seller"
+}
+
+### Read the user information. Use the jwt token of the cookie from the above post request response.
+GET http://localhost:3000/user
+Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E
+
+### Update the user. Use the jwt token of the cookie from the above post request response.
+PUT http://localhost:3000/user
+Content-Type: application/json
+
+{
+    "username": "klaus",
+    "password": "654321",
+    "deposit": "250",
+    "role": "buyer"
+}
+
+### Delete the user. Use the jwt token of the cookie from the above post request response.
+DELETE http://localhost:3000/user
+Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E

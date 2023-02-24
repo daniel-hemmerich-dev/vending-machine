@@ -1,0 +1,32 @@
+{
+  "name": "vending-machine",
+  "version": "1.0.0",
+  "description": "A vending machine",
+  "main": "app.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniel-hemmerich-dev/vending-machine.git"
+  },
+  "author": "Daniel Hemmerich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daniel-hemmerich-dev/vending-machine/issues"
+  },
+  "homepage": "https://github.com/daniel-hemmerich-dev/vending-machine#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.15.0",
+    "jsonwebtoken": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.14.1",
+    "typescript": "^4.9.5"
+  }
+}
