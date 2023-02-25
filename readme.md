@@ -4,3 +4,4 @@
 - express.js
 - jwt
 - dotenv
+- bcrypt

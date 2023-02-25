@@ -1,4 +1,4 @@
-### Create a user.
+### Create a user, log it in, create a jwt token and safe it in a cookie.
 POST http://localhost:3000/user
 Content-Type: application/json
 
@@ -9,9 +9,11 @@ Content-Type: application/json
     "role": "seller"
 }
 
+
 ### Read the user information. Use the jwt token of the cookie from the above post request response.
 GET http://localhost:3000/user
 Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E
+
 
 ### Update the user. Use the jwt token of the cookie from the above post request response.
 PUT http://localhost:3000/user
@@ -24,6 +26,17 @@ Content-Type: application/json
     "role": "buyer"
 }
 
+
 ### Delete the user. Use the jwt token of the cookie from the above post request response.
 DELETE http://localhost:3000/user
+Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E
+
+
+### Add the specified coins to the user's deposit. Use the jwt token of the cookie from the above post request response.
+PUT http://localhost:3000/deposit/50
+Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E
+
+
+### Reset the user's deposit to zero. Use the jwt token of the cookie from the above post request response.
+PUT http://localhost:3000/reset
 Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E

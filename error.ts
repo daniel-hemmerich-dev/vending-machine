@@ -5,10 +5,10 @@ import {Error} from './index'
 
 
 /**
- * 
- * @param status 
- * @param errors 
- * @param response 
+ * Respond to this request with an error code and a message.
+ * @param status The HTTP status code.
+ * @param errors The error objects
+ * @param response The express response object
  */
 function error(
     status : number,
@@ -16,22 +16,21 @@ function error(
     response : Response
 )
 {
-    return response.status(status).json(errors)
+    response.status(status).json(errors)
 }
 
 
 /**
- * 
- * @param errors 
- * @param response 
- * @returns 
+ * Respond to this request with an 400 error code and a message.
+ * @param errors The error objects
+ * @param response The express response object
  */
 export function badRequest(
     errors : Error[],
     response : Response
 ) 
 {
-    return error(
+    error(
         400,
         errors,
         response
@@ -40,17 +39,16 @@ export function badRequest(
 
 
 /**
- * 
- * @param errors 
- * @param response 
- * @returns 
+ * Respond to this request with an 401 error code and a message.
+ * @param errors The error objects
+ * @param response The express response object
  */
 export function unauthorized(
     errors : Error[],
     response : Response
 ) 
 {
-    return error(
+    error(
         401,
         errors,
         response
@@ -59,17 +57,16 @@ export function unauthorized(
 
 
 /**
- * 
- * @param errors 
- * @param response 
- * @returns 
+ * Respond to this request with an 403 error code and a message.
+ * @param errors The error objects
+ * @param response The express response object
  */
 export function forbidden(
     errors : Error[],
     response : Response
 ) 
 {
-    return error(
+    error(
         403,
         errors,
         response
