@@ -5,7 +5,7 @@ import userNamespace from './user'
 import {User, UserRole, Product} from './index'
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-import error from './error'
+import errorNamesapce from './error'
 import productNamespace from './product'
 
 
@@ -26,7 +26,7 @@ export async function login(
 
     // if the user does not exist respond with an error
     if (!user) {
-        return error.badRequest(
+        return errorNamesapce.badRequest(
             [
                 {
                     value: request.body.username,
@@ -92,7 +92,7 @@ export function authenticate(
 
     // respond with an error if there is no token set in the cookie
     if (!jwtToken) {
-        return error.unauthorized(
+        return errorNamesapce.unauthorized(
             [{
                 value: '',
                 msg: 'Invalid token',
@@ -109,7 +109,7 @@ export function authenticate(
         function (error: any, content: any) {
             // If there is an error the token has expired and we send an error response
             if (error) {
-                return error.forbidden(
+                return errorNamesapce.forbidden(
                     [{
                         value: jwtToken[1],
                         msg: 'Token expired',
@@ -121,7 +121,7 @@ export function authenticate(
 
             // If there is no sub data we send an error response
             if (!content.sub) {
-                return error.forbidden(
+                return errorNamesapce.forbidden(
                     [{
                         value: '',
                         msg: 'Invalid token content',
@@ -134,7 +134,7 @@ export function authenticate(
             // if there is no user with that id we send an error response
             const user = userNamespace.findById(content.sub)
             if (!user) {
-                return error.forbidden(
+                return errorNamesapce.forbidden(
                     [{
                         value: content.sub,
                         msg: 'Invalid user id',
@@ -165,7 +165,7 @@ export function authoriseSeller(
 )
 {
     if(response.locals.user.role !== UserRole.Seller) {
-        return error.forbidden(
+        return errorNamesapce.forbidden(
             [{
                 value: response.locals.user.role,
                 msg: 'Seller role is required for this operation',
@@ -192,7 +192,7 @@ export function authoriseBuyer(
 )
 {
     if(response.locals.user.role !== UserRole.Buyer) {
-        return error.forbidden(
+        return errorNamesapce.forbidden(
             [{
                 value: response.locals.user.role,
                 msg: 'Buyer role is required for this operation',
@@ -221,7 +221,7 @@ export function authoriseOwner(
     // if the product does not exist send an error resonse
     const product : Product | null = productNamespace.findById(request.params.id)
     if (!product) {
-        return error.badRequest(
+        return errorNamesapce.badRequest(
             [{
                 value: request.params.id,
                 msg: 'Invalid product id',
@@ -233,7 +233,7 @@ export function authoriseOwner(
 
     // if the authenticated user is not the owner of the product send an error response
     if(response.locals.user.id !== product.sellerId) {
-        return error.badRequest(
+        return errorNamesapce.badRequest(
             [{
                 value: request.params.id,
                 msg: 'Authenticated user is not the owner of product',

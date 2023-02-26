@@ -3,7 +3,8 @@
 import { Product } from "./index"
 import { NextFunction, Request, Response } from 'express'
 import { body, validationResult } from 'express-validator'
-import error from "./error"
+import error from './error'
+import crypto from 'crypto'
 
 
 // The product data
@@ -57,10 +58,9 @@ export async function validate(
 ) 
 {
     // validate
-    await body('id').optional().isAlphanumeric().isLength({ min: 36, max: 36 }).run(request)
-    await body('username').isAlphanumeric().isLength({ min:3, max:32 }).run(request)
-    await body('password').isLength({ min: 4, max: 16 }).run(request)
-    await body('deposit').optional().isInt().isLength({ min: 0 }).run(request)
+    await body('productName').isLength({ min:3, max:32 }).run(request)
+    await body('cost').isInt({ min: 5, max : 250 }).isDivisibleBy(5).run(request)
+    await body('amountAvailable').isInt({ min: 0, max: 42 }).run(request)
 
     // if there are errors, provide an error response
     const errors = validationResult(request)
@@ -82,12 +82,12 @@ export async function create(
 ) 
 {
     // respond with an error if the productname already exist
-    if (findByProductname(request.body.username ?? '')) {
+    if (findByProductname(request.body.productName ?? '')) {
         error.badRequest(
             [{
-                value: request.body.username,
-                msg: 'Productname already exist',
-                param: 'productname'
+                value: request.body.productName,
+                msg: 'ProductName already exist',
+                param: 'productName'
             }],
             response
         )

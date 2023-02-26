@@ -67,7 +67,7 @@ export async function validate(
     await body('id').optional().isAlphanumeric().isLength({ min: 36, max: 36 }).run(request)
     await body('username').isAlphanumeric().isLength({ min:3, max:32 }).run(request)
     await body('password').isLength({ min: 4, max: 16 }).run(request)
-    await body('deposit').optional().isInt().isLength({ min: 0 }).run(request)
+    await body('deposit').optional().isInt({ min: 0, max: 1000 }).run(request)
     await oneOf([
         body('role').equals(UserRole.Seller),
         body('role').equals(UserRole.Buyer)
@@ -288,6 +288,7 @@ export function buy(
             response
         )
     }
+    product.amountAvailable--
 
     // if the total spent is greater than the user deposit send an error response
     const totalSpent : number = product.cost * amount
@@ -307,7 +308,7 @@ export function buy(
     const changeValues : number[] = []
     response.locals.user.deposit = 0
     allowedCoins.map(coin => {
-        while (change > coin) {
+        while (change >= coin) {
             change -= coin
             changeValues.push(coin)
         }

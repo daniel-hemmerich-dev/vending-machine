@@ -28,7 +28,7 @@ app.get('/product/:id', product.read)
 
 // define other routes
 app.put('/deposit/:coins', auth.authenticate, auth.authoriseBuyer, user.deposit)
-app.put('/buy', auth.authenticate, auth.authoriseBuyer, user.buy)
+app.put('/buy/:id/:amount', auth.authenticate, auth.authoriseBuyer, user.buy)
 app.put('/reset', auth.authenticate, auth.authoriseBuyer, user.reset)
 
 
@@ -45,8 +45,4 @@ app.use((error : Error, request : Request, response : Response) => {
 })
 
 
-// starting the server
-app.listen(
-  process.env.PORT, 
-  () => console.log(`Vending machine listening on port ${process.env.PORT}`)
-)
+export default app
