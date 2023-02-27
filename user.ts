@@ -192,7 +192,10 @@ export function destroy(
         1
     )
 
-    response.status(204).send('')
+    auth.logout(
+        request,
+        response
+    )
 }
 
 

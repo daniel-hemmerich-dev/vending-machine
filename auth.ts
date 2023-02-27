@@ -40,7 +40,7 @@ export async function validate(
  * @param request The express request object
  * @param response The express response object
  */
-export async function logout(
+export function logout(
     request : Request, 
     response : Response
 )
