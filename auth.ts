@@ -110,8 +110,8 @@ export async function login(
         accessToken,
         {
             maxAge: 1000 * 60 * 15, 
-            //httpOnly: true, 
-            //signed: true // Indicates if the cookie should be signed
+            httpOnly: true
+            //signed: true
         }
     );
 
