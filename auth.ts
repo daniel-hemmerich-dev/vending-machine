@@ -7,6 +7,48 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 import errorNamesapce from './error'
 import productNamespace from './product'
+import { body, validationResult } from 'express-validator'
+
+
+/**
+ * Validate the user fields of the body necessary for a login
+ * @param request The express request object
+ * @param response The express response object
+ * @param next The express next function
+ */
+export async function validate(
+    request : Request,
+    response : Response,
+    next : NextFunction
+) 
+{
+    // validate
+    await body('username').isAlphanumeric().isLength({ min:3, max:32 }).run(request)
+    await body('password').isLength({ min: 4, max: 16 }).run(request)
+
+    // if there are errors, provide an error response
+    const errors = validationResult(request)
+    if (!errors.isEmpty()) return response.status(400).json(errors.array())
+
+    // pass to the next handler
+    next()
+}
+
+
+/**
+ * Logout a user
+ * @param request The express request object
+ * @param response The express response object
+ */
+export async function logout(
+    request : Request, 
+    response : Response
+)
+{
+    response.clearCookie(process.env.JWT_COOKIE_NAME ?? 'vending-machine-jwt')
+    
+    response.status(204).send('')
+}
 
 
 /**
@@ -68,10 +110,12 @@ export async function login(
         accessToken,
         {
             maxAge: 1000 * 60 * 15, 
-            httpOnly: true, 
+            //httpOnly: true, 
             //signed: true // Indicates if the cookie should be signed
         }
     );
+
+    return response.status(201).send(user)
 }
 
 
@@ -250,7 +294,9 @@ export function authoriseOwner(
 
 
 export default {
+    validate: validate,
     login: login,
+    logout: logout,
     authenticate: authenticate,
     authoriseSeller: authoriseSeller,
     authoriseOwner: authoriseOwner,

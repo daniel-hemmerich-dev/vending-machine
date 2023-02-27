@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/server.js",
-    "test": "node --test-reporter=spec --test ./dist/tests/"
+    "test": "node --test ./dist/tests/"
   },
   "repository": {
     "type": "git",

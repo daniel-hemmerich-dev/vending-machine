@@ -30,6 +30,8 @@ app.get('/product/:id', product.read)
 app.put('/deposit/:coins', auth.authenticate, auth.authoriseBuyer, user.deposit)
 app.put('/buy/:id/:amount', auth.authenticate, auth.authoriseBuyer, user.buy)
 app.put('/reset', auth.authenticate, auth.authoriseBuyer, user.reset)
+app.put('/login', auth.validate, auth.login)
+app.put('/logout', auth.authenticate, auth.logout)
 
 
 // 404 handler

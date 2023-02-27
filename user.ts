@@ -121,11 +121,12 @@ export async function create(
         }
         users.push(user)
 
+        // uncomment if you want a user to be logined after registration
         // login the user
-        await auth.login(
-            request,
-            response
-        )
+        // await auth.login(
+        //     request,
+        //     response
+        // )
 
         // respond with the user
         return response.status(201).send(user)
