@@ -2,7 +2,7 @@
   "name": "vending-machine",
   "version": "1.0.0",
   "description": "A vending machine",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/server.js",
