@@ -14,7 +14,7 @@ export const enum UserRole {
 export interface User {
     id ?: string
     username : string
-    password : string
+    password ?: string
     deposit ?: number
     role : UserRole.Seller | UserRole.Buyer
 }

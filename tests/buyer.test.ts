@@ -3,7 +3,7 @@
 import {describe, it, before, after} from 'node:test'
 import assert from 'node:assert'
 const supertest = require('supertest')
-import app from '../app'
+import app from '../src/app'
 import { Response } from 'supertest'
 
 

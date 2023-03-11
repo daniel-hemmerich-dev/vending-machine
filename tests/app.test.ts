@@ -2,7 +2,7 @@
 
 import test from 'node:test'
 const supertest = require('supertest')
-import app from './../app'
+import app from '../src/app'
 
 
 test('404', (t) => {

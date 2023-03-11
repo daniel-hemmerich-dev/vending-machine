@@ -115,7 +115,7 @@ export async function login(
         }
     );
 
-    return response.status(201).send(user)
+    return response.status(201).send(userNamespace.censorData(user))
 }
 
 

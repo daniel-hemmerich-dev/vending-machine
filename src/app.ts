@@ -1,7 +1,7 @@
 'use strict'
 
 import dotenv from 'dotenv'
-import express, { Express, Request, Response } from 'express'
+import express, { Express, Request, RequestHandler, Response } from 'express'
 import auth from './auth'
 import user from './user'
 import product from './product'

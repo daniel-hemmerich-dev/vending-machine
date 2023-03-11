@@ -1,4 +1,19 @@
-### Create a user, log it in, create a jwt token and safe it in a cookie.
+### Login a user.
+PUT http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "username": "rachel",
+    "password": "123456"
+}
+
+
+### Logout a user. Use the jwt token of the cookie from the login request response.
+PUT http://localhost:3000/logout
+Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E
+
+
+### Create a user.
 POST http://localhost:3000/user
 Content-Type: application/json
 
@@ -10,13 +25,14 @@ Content-Type: application/json
 }
 
 
-### Read the user information. Use the jwt token of the cookie from the above post request response.
+### Read the user information. Use the jwt token of the cookie from the login request response.
 GET http://localhost:3000/user
 Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E
 
 
-### Update the user. Use the jwt token of the cookie from the above post request response.
+### Update the user. Use the jwt token of the cookie from the login request response.
 PUT http://localhost:3000/user
+Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E
 Content-Type: application/json
 
 {
@@ -27,16 +43,56 @@ Content-Type: application/json
 }
 
 
-### Delete the user. Use the jwt token of the cookie from the above post request response.
+### Delete the user. Use the jwt token of the cookie from the login request response.
 DELETE http://localhost:3000/user
 Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E
 
 
-### Add the specified coins to the user's deposit. Use the jwt token of the cookie from the above post request response.
+### Create a product. Use the jwt token of the cookie from the login request response.
+POST http://localhost:3000/product
+Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E
+Content-Type: application/json
+
+{
+    "amountAvailable": 3,
+    "cost": 40,
+    "productName": "Coca Cola"
+}
+
+
+### Read the product information. Use the jwt token of the cookie from the login request response.
+GET http://localhost:3000/product/02430402-8a94-4ab6-885d-dd5ba4f9afd8
+Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E
+
+
+### Update the product. Use the jwt token of the cookie from the login request response.
+PUT http://localhost:3000/product/02430402-8a94-4ab6-885d-dd5ba4f9afd8
+Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E
+Content-Type: application/json
+
+{
+    "amountAvailable": 5,
+    "cost": 50,
+    "productName": "Coca Cola Zero"
+}
+
+
+### Delete the product. Use the jwt token of the cookie from the login request response.
+DELETE http://localhost:3000/product/8986d7e5-c3b4-431f-8e1c-ae167c1fd77f
+Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E
+
+
+
+### Add the specified coins to the user's deposit. Use the jwt token of the cookie from the login request response.
 PUT http://localhost:3000/deposit/50
 Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E
 
 
-### Reset the user's deposit to zero. Use the jwt token of the cookie from the above post request response.
+### Reset the user's deposit to zero. Use the jwt token of the cookie from the login request response.
 PUT http://localhost:3000/reset
+Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E
+
+
+### Reset the user's deposit to zero. Use the jwt token of the cookie from the login request response.
+PUT http://localhost:3000/buy/02430402-8a94-4ab6-885d-dd5ba4f9afd8/2
 Cookie: vending-machine-jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImlhdCI6MTY3NzI0ODM1N30.ogMcyOstQLZCE-e-MqE3_L1Qf1Ydinn13igsZmRCN_E

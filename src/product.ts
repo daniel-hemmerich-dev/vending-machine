@@ -77,7 +77,7 @@ export async function validate(
  * @param response The express response object
  */
 export async function create(
-    request : Request,
+    request : Request<{}, {}, Product>,
     response : Response
 ) 
 {
@@ -141,7 +141,7 @@ export function read(
  * @param response The express response object
  */
 export async function update(
-    request : Request,
+    request : Request<{}, {}, Product>,
     response : Response
 ) 
 {

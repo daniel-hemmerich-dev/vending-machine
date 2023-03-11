@@ -18,6 +18,18 @@ const allowedCoins : number[] = [100, 50, 20, 10, 5]
 
 
 /**
+ * Return the user object without sensitive data like e.g. password
+ * @param user The user object which will have sensitive data removed
+ * @returns The user object without sensitive data
+ */
+export function censorData(user: User): User {
+    let userWithoutPassword = structuredClone(user)
+    delete userWithoutPassword.password
+    return userWithoutPassword
+}
+
+
+/**
  * Finds and returns a user that matches the id
  * @param id The id of the user
  * @returns The matching user or null if a user was not found
@@ -88,7 +100,7 @@ export async function validate(
  * @param response The express response object
  */
 export async function create(
-    request : Request,
+    request : Request<{}, {}, User>,
     response : Response
 ) 
 {
@@ -129,7 +141,7 @@ export async function create(
         // )
 
         // respond with the user
-        return response.status(201).send(user)
+        return response.status(201).send(censorData(user))
     } catch {
         response.status(500).send('')
     }
@@ -146,7 +158,7 @@ export function read(
     response : Response
 ) 
 {
-    response.json(response.locals.user)
+    response.json(censorData(response.locals.user))
 }
 
 
@@ -156,7 +168,7 @@ export function read(
  * @param response The express response object
  */
 export async function update(
-    request : Request,
+    request : Request<{}, {}, User>,
     response : Response
 ) 
 {
@@ -170,7 +182,7 @@ export async function update(
         response.locals.user.password = hashedPassword
         response.locals.user.role = request.body.role
 
-        return response.json(response.locals.user)
+        return response.json(censorData(response.locals.user))
     } catch {
         response.status(500).send('')
     }
@@ -211,7 +223,7 @@ export function reset(
 {
     response.locals.user.deposit = 0
 
-    response.json(response.locals.user)
+    response.json(censorData(response.locals.user))
 }
 
 
@@ -231,7 +243,7 @@ export function deposit(
     if (!allowedCoins.includes(coins)) {
         return error.badRequest(
             [{
-                value: coins.toString(),
+                value: request.params.coins,
                 msg: 'Coins must be one of: ' + allowedCoins.toString(),
                 param: 'coins'
             }],
@@ -241,7 +253,7 @@ export function deposit(
 
     response.locals.user.deposit += coins
 
-    response.json(response.locals.user)
+    response.json(censorData(response.locals.user))
 }
 
 
@@ -329,6 +341,7 @@ export function buy(
 
 
 export default {
+    censorData: censorData,
     findById: findById,
     findByUsername: findByUsername,
     validate: validate,
